@@ -1,10 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import {useFonts } from 'expo-font';
 import { useState,useEffect } from 'react';
 import dayjs from 'dayjs'
 
+
 export default function App() {
+
+
 
   const [dateSt,setDateSt] = useState(dayjs());
 
@@ -16,6 +18,16 @@ export default function App() {
     return () => clearInterval(intervalvar)
   },[])
 
+
+  let [fontLoader] = useFonts({
+    'Days':require('./assets/fonts/DaysOne.ttf')
+  })
+
+  if (!fontLoader) {
+    return null
+  }
+  
+
   const target1var = dayjs('2024-04-29')
   const difjobs = target1var.diff(dateSt,"day")
 
@@ -24,11 +36,10 @@ export default function App() {
 
   
 
-  let [fontLoader] = useFonts({
-    'Days':require('./assets/fonts/DaysOne.ttf')
-  })
+  
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#363434" barStyle="light-content" />
       <View style={styles.box}>
         <Text style={styles.textHour}>{dateSt.format("ddd/MMM  :hh:mm:ss A")}</Text>
       </View>
@@ -82,7 +93,9 @@ const styles = StyleSheet.create({
   textHour2: {
 
     fontFamily:"Days",
-    fontSize:100,
+    fontSize:80,
+    // backgroundColor:"green",
+    width:"60%"
   },
   
 });
